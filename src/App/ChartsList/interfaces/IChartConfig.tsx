@@ -2,6 +2,7 @@ export type IChartDataSource<T> = () => Promise<T>;
 
 export interface IChartLayerConfig<T, TData> {
     type: T;
+    name: string;
     field: string;
     dataSource: IChartDataSource<TData>;
 }

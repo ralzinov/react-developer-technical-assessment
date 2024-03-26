@@ -16,6 +16,8 @@ const MOCK_CONFIG = [
             field: 'name',
             layers: [
                 {
+                    field: 'uv',
+                    name: 'UV',
                     dataSource: fredDataSourceFactory<IFREDObservationsParams, IFREDObservationsResponse>({
                         url: '/fred/series/observations',
                         params: {
@@ -23,9 +25,9 @@ const MOCK_CONFIG = [
                         }
                     }),
                     type: LinearChartType.LINE,
-                    field: 'uv'
                 },
                 {
+                    name: 'Amount',
                     dataSource: fredDataSourceFactory<IFREDObservationsParams, IFREDObservationsResponse>({
                         url: '/fred/series/observations',
                         params: {
@@ -35,16 +37,17 @@ const MOCK_CONFIG = [
                     type: LinearChartType.AREA,
                     field: 'amt'
                 },
-                // {
-                //     dataSource: fredDataSourceFactory<IFREDObservationsParams, IFREDObservationsResponse>({
-                //         url: '/fred/series/observations',
-                //         params: {
-                //             series_id: 'MSIMZMP'
-                //         }
-                //     }),
-                //     type: LinearChartType.COLUMNS,
-                //     field: 'pv'
-                // }
+                {
+                    name: 'PV',
+                    dataSource: fredDataSourceFactory<IFREDObservationsParams, IFREDObservationsResponse>({
+                        url: '/fred/series/observations',
+                        params: {
+                            series_id: 'MSIMZMP'
+                        }
+                    }),
+                    type: LinearChartType.COLUMNS,
+                    field: 'pv'
+                }
             ]
         }
 
