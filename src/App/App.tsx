@@ -82,7 +82,7 @@ export const App: React.FC = () => {
                 <Container maxWidth="lg">
                     <Stack justifyContent={'space-between'} direction={'row'} alignItems={'center'}>
                         <Typography variant={'subtitle2'}>FRED</Typography>
-                        <WhiteButton variant={'outlined'} onClick={addChart}>Add</WhiteButton>
+                        <WhiteButton variant={'outlined'} onClick={addChart}>Add chart</WhiteButton>
                     </Stack>
                 </Container>
             </Header>
