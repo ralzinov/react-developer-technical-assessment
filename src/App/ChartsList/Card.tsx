@@ -33,12 +33,12 @@ export const Card: React.FC<ICardProps> = ({ title, actions, settings, children,
                 <AppBar position={'relative'} color={'transparent'} sx={{ backgroundColor: 'primary.light'}} elevation={0}>
                     <Content>
                         <Typography variant={'button'}>{title}</Typography>
-                        <Stack spacing={1} direction={'row'}>
+                        <Stack spacing={1} direction={'row'} alignItems={'center'}>
                             {actions}
-                            <IconButton onClick={() => setSettingsCollapsed(!settingsCollapsed)}>
+                            <IconButton onClick={() => setSettingsCollapsed(!settingsCollapsed)} size={'small'}>
                                 <SettingsIcon />
                             </IconButton>
-                            <IconButton onClick={onDelete}>
+                            <IconButton onClick={onDelete} size={'small'}>
                                 <DeleteIcon />
                             </IconButton>
                         </Stack>
