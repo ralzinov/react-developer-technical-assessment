@@ -8,7 +8,15 @@ import { Header } from './Header.tsx';
 
 const MOCK_CONFIG: IChartConfig[] = [
     {
-        id: 'a',
+        id: 'chart2',
+        name: 'Chart 2',
+        config: {
+            field: 'name',
+            layers: []
+        }
+    },
+    {
+        id: 'chart1',
         name: 'Chart 1',
         config: {
             field: 'name',
