@@ -68,7 +68,7 @@ export const App: React.FC = () => {
             <Container maxWidth="lg">
                 <Stack spacing={2}>
                     <Header />
-                    <ChartsList charts={charts} />
+                    <ChartsList charts={charts} onChange={setCharts} />
                 </Stack>
             </Container>
         </Box>

@@ -13,14 +13,15 @@ export interface IChartConfig extends IChartProps {
 
 interface IChartsListProps {
     charts: IChartConfig[];
+    onChange: (charts: IChartConfig[]) => void;
 }
 
-export const ChartsList: React.FC<IChartsListProps> = ({ charts = [] }) => {
+export const ChartsList: React.FC<IChartsListProps> = ({ charts = [], onChange }) => {
     const [filters, setFilters] = useState<Record<string, IChartFilters>>({});
 
     return (
         <Stack spacing={4}>
-            {charts.map(({ id, name, config }) => {
+            {charts.map(({ id, name, config }, index) => {
                 const chartFilters = filters[id] || { from: getYearDate(-20) };
                 const isEmpty = config.layers.length === 0;
                 return (
@@ -29,6 +30,11 @@ export const ChartsList: React.FC<IChartsListProps> = ({ charts = [] }) => {
                         title={name}
                         settings={<ChartSettings />}
                         settingsInitialOpen={isEmpty}
+                        onDelete={() => {
+                            const newCharts = [...charts];
+                            newCharts.splice(index, 1);
+                            onChange(newCharts);
+                        }}
                         actions={
                             <ChartPeriodFilters
                                 value={chartFilters}
