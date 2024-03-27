@@ -20,7 +20,7 @@ export const ChartsList: React.FC<IChartsListProps> = ({ charts = [], onChange }
     const [filters, setFilters] = useState<Record<string, IChartFilters>>({});
 
     return (
-        <Stack spacing={4}>
+        <Stack spacing={3}>
             {charts.map(({ id, name, config }, index) => {
                 const chartFilters = filters[id] || { from: getYearDate(-20) };
                 const isEmpty = config.layers.length === 0;
