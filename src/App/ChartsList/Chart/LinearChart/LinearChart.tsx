@@ -9,7 +9,7 @@ import {
     ResponsiveContainer,
     Tooltip,
     XAxis,
-    YAxis
+    YAxis,
 } from 'recharts';
 import { IChartComponentProps } from '../../interfaces';
 import { LinearChartType } from './LinearChart.const';
@@ -19,37 +19,43 @@ const getChartLayers = (layers: IChartComponentProps['config']['layers']) =>
     layers.map((layerConfig) => {
         switch (layerConfig.type) {
             case LinearChartType.LINE: {
-                return <Line
-                    key={layerConfig.type}
-                    connectNulls
-                    type="monotone"
-                    dataKey={layerConfig.field}
-                    name={layerConfig.name}
-                    isAnimationActive={false}
-                    stroke="#ff7300"
-                />;
+                return (
+                    <Line
+                        key={layerConfig.type}
+                        connectNulls
+                        type="monotone"
+                        dataKey={layerConfig.field}
+                        name={layerConfig.name}
+                        isAnimationActive={false}
+                        stroke="#ff7300"
+                    />
+                );
             }
             case LinearChartType.AREA: {
-                return <Area
-                    key={layerConfig.type}
-                    name={layerConfig.name}
-                    connectNulls
-                    type="monotone"
-                    dataKey={layerConfig.field}
-                    isAnimationActive={false}
-                    fill="#8884d8"
-                    stroke="#8884d8"
-                />;
+                return (
+                    <Area
+                        key={layerConfig.type}
+                        name={layerConfig.name}
+                        connectNulls
+                        type="monotone"
+                        dataKey={layerConfig.field}
+                        isAnimationActive={false}
+                        fill="#8884d8"
+                        stroke="#8884d8"
+                    />
+                );
             }
             case LinearChartType.COLUMNS: {
-                return <Bar
-                    key={layerConfig.type}
-                    name={layerConfig.name}
-                    dataKey={layerConfig.field}
-                    isAnimationActive={false}
-                    barSize={20}
-                    fill="#413ea0"
-                />;
+                return (
+                    <Bar
+                        key={layerConfig.type}
+                        name={layerConfig.name}
+                        dataKey={layerConfig.field}
+                        isAnimationActive={false}
+                        barSize={20}
+                        fill="#413ea0"
+                    />
+                );
             }
 
             default: {

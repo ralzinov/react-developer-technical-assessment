@@ -10,7 +10,6 @@ interface IChartSettingsProps {
 }
 
 export const ChartSettings: React.FC<IChartSettingsProps> = ({ value, onChange }) => {
-
     return (
         <Stack paddingTop={2} paddingBottom={2} spacing={2}>
             <TextField
@@ -19,7 +18,7 @@ export const ChartSettings: React.FC<IChartSettingsProps> = ({ value, onChange }
                 onChange={(e) => {
                     onChange({
                         ...value,
-                        name: e.target.value.trim()
+                        name: e.target.value.trim(),
                     });
                 }}
             />

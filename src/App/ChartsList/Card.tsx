@@ -17,8 +17,13 @@ interface ICardProps {
 
 const Content: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     return (
-        <Box position={'relative'} padding={'8px 16px'} display={'flex'} alignItems={'center'}
-             justifyContent={'space-between'}>
+        <Box
+            position={'relative'}
+            padding={'8px 16px'}
+            display={'flex'}
+            alignItems={'center'}
+            justifyContent={'space-between'}
+        >
             {children}
         </Box>
     );
@@ -30,7 +35,12 @@ export const Card: React.FC<ICardProps> = ({ title, actions, settings, children,
     return (
         <MuiCard variant={'outlined'}>
             <Box>
-                <AppBar position={'relative'} color={'transparent'} sx={{ backgroundColor: 'primary.light'}} elevation={0}>
+                <AppBar
+                    position={'relative'}
+                    color={'transparent'}
+                    sx={{ backgroundColor: 'primary.light' }}
+                    elevation={0}
+                >
                     <Content>
                         <Typography variant={'button'}>{title}</Typography>
                         <Stack spacing={1} direction={'row'} alignItems={'center'}>
@@ -46,16 +56,12 @@ export const Card: React.FC<ICardProps> = ({ title, actions, settings, children,
                 </AppBar>
                 <Collapse in={!settingsCollapsed}>
                     <Divider />
-                    <Content>
-                        {settings}
-                    </Content>
+                    <Content>{settings}</Content>
                 </Collapse>
                 {children && (
                     <>
-                    <Divider />
-                        <Content>
-                            {children}
-                        </Content>
+                        <Divider />
+                        <Content>{children}</Content>
                     </>
                 )}
             </Box>

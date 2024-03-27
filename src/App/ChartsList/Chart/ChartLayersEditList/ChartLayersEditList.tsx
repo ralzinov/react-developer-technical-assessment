@@ -3,6 +3,7 @@ import Stack from '@mui/material/Stack';
 import { ChartLayersEditListRow } from './ChartLayersEditListRow.tsx';
 import { IChartLayerConfig } from '../../interfaces';
 import { ISupportedChartTypes } from '../Chart.tsx';
+import { Divider } from '@mui/material';
 
 interface IChartLayersEditListProps {
     value: IChartLayerConfig<ISupportedChartTypes>[];
@@ -10,24 +11,26 @@ interface IChartLayersEditListProps {
 }
 
 export const ChartLayersEditList: React.FC<IChartLayersEditListProps> = ({ value, onChange }) => {
-
     return (
         <Stack spacing={1}>
             {value.map((layer, index) => (
-                <ChartLayersEditListRow
-                    key={layer.field}
-                    value={layer}
-                    onChange={(newLayer) => {
-                        const newValue = [...value];
-                        newValue[index] = newLayer;
-                        onChange(newValue);
-                    }}
-                    onDelete={() => {
-                        const newValue = [...value];
-                        newValue.splice(index, 1);
-                        onChange(newValue);
-                    }}
-                />
+                <React.Fragment key={layer.field}>
+                    <ChartLayersEditListRow
+                        key={layer.field}
+                        value={layer}
+                        onChange={(newLayer) => {
+                            const newValue = [...value];
+                            newValue[index] = newLayer;
+                            onChange(newValue);
+                        }}
+                        onDelete={() => {
+                            const newValue = [...value];
+                            newValue.splice(index, 1);
+                            onChange(newValue);
+                        }}
+                    />
+                    <Divider />
+                </React.Fragment>
             ))}
         </Stack>
     );

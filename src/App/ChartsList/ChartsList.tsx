@@ -54,9 +54,7 @@ export const ChartsList: React.FC<IChartsListProps> = ({ charts = [], onChange, 
                             />
                         }
                     >
-                        {!isEmpty && (
-                            <Chart config={config} filters={chartFilters} />
-                        )}
+                        {!isEmpty && <Chart config={config} filters={chartFilters} />}
                     </Card>
                 );
             })}
@@ -64,7 +62,9 @@ export const ChartsList: React.FC<IChartsListProps> = ({ charts = [], onChange, 
                 <Stack spacing={2} padding={2} height={'300px'} alignItems={'center'} justifyContent={'center'}>
                     <Typography variant={'h5'}>No charts</Typography>
                     <Typography variant={'subtitle1'}>Start adding charts by clicking button</Typography>
-                    <Button onClick={onCreate} variant={'contained'}>Add chart</Button>
+                    <Button onClick={onCreate} variant={'contained'}>
+                        Add chart
+                    </Button>
                 </Stack>
             )}
         </Stack>

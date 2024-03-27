@@ -8,14 +8,12 @@ interface IChartPeriodFiltersProps {
     onChange: (value: IChartFilters) => void;
 }
 
-
 export const ChartPeriodFilters: React.FC<IChartPeriodFiltersProps> = ({ value, onChange }) => {
-
     const buttons = [
         { id: 'max', label: 'MAX', date: void 0 },
         { id: '20years', label: '20 years', date: getYearDate(-20) },
         { id: '10years', label: '10 years', date: getYearDate(-10) },
-        { id: '5year', label: '5 years', date: getYearDate(-5) }
+        { id: '5year', label: '5 years', date: getYearDate(-5) },
     ];
 
     const isActive = (date: string | undefined) => date === value?.from;

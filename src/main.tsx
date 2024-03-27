@@ -6,7 +6,7 @@ import { App } from './App';
 import { SWRConfig, SWRConfiguration } from 'swr';
 
 const swrConfig: SWRConfiguration = {
-    fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
+    fetcher: (resource, init) => fetch(resource, init).then((res) => res.json()),
 };
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -18,5 +18,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                 </SWRConfig>
             </CssBaseline>
         </Theme>
-    </React.StrictMode>
+    </React.StrictMode>,
 );

@@ -1,13 +1,15 @@
 import { IFREDObservationsParams } from './fred';
 
+export interface IChartLayerSource {
+    url: string;
+    params: IFREDObservationsParams;
+}
+
 export interface IChartLayerConfig<T> {
     type: T;
     name: string;
     field: string;
-    source: {
-        url: string,
-        params: IFREDObservationsParams
-    };
+    source: IChartLayerSource;
 }
 
 export interface IChartConfig<T> {

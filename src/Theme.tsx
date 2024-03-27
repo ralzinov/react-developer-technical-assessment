@@ -5,22 +5,20 @@ const theme = createTheme({
     palette: {
         primary: {
             main: '#556cd6',
-            light: '#dfe1e7'
+            light: '#dfe1e7',
         },
         secondary: {
-            main: '#19857b'
+            main: '#19857b',
         },
         error: {
-            main: red.A400
+            main: red.A400,
         },
         white: {
-            main: '#fff'
-        }
-    }
+            main: '#fff',
+        },
+    },
 });
 
 export const Theme: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-    <ThemeProvider theme={theme}>
-        {children}
-    </ThemeProvider>
+    <ThemeProvider theme={theme}>{children}</ThemeProvider>
 );

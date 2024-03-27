@@ -13,8 +13,8 @@ const MOCK_CONFIG: IChartConfig[] = [
         name: 'Chart 2',
         config: {
             field: 'name',
-            layers: []
-        }
+            layers: [],
+        },
     },
     {
         id: 'chart1',
@@ -28,37 +28,36 @@ const MOCK_CONFIG: IChartConfig[] = [
                     source: {
                         url: '/fred/series/observations',
                         params: {
-                            series_id: 'GNPCA'
-                        }
+                            series_id: 'GNPCA',
+                        },
                     },
-                    type: LinearChartType.LINE
+                    type: LinearChartType.LINE,
                 },
                 {
                     name: 'Amount',
                     source: {
                         url: '/fred/series/observations',
                         params: {
-                            series_id: 'MSIALLP'
-                        }
+                            series_id: 'MSIALLP',
+                        },
                     },
                     type: LinearChartType.AREA,
-                    field: 'amt'
+                    field: 'amt',
                 },
                 {
                     name: 'PV',
                     source: {
                         url: '/fred/series/observations',
                         params: {
-                            series_id: 'MSIMZMP'
-                        }
+                            series_id: 'MSIMZMP',
+                        },
                     },
                     type: LinearChartType.COLUMNS,
-                    field: 'pv'
-                }
-            ]
-        }
-
-    }
+                    field: 'pv',
+                },
+            ],
+        },
+    },
 ];
 
 export const App: React.FC = () => {
@@ -70,8 +69,8 @@ export const App: React.FC = () => {
             name: `Chart ${charts.length + 1}`,
             config: {
                 field: 'name',
-                layers: []
-            }
+                layers: [],
+            },
         };
         setCharts([newChart, ...charts]);
     };
@@ -82,7 +81,9 @@ export const App: React.FC = () => {
                 <Container maxWidth="lg">
                     <Stack justifyContent={'space-between'} direction={'row'} alignItems={'center'}>
                         <Typography variant={'subtitle2'}>FRED</Typography>
-                        <WhiteButton variant={'outlined'} onClick={addChart}>Add chart</WhiteButton>
+                        <WhiteButton variant={'outlined'} onClick={addChart}>
+                            Add chart
+                        </WhiteButton>
                     </Stack>
                 </Container>
             </Header>

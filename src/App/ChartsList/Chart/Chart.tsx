@@ -19,7 +19,7 @@ export interface IChartProps {
 }
 
 enum ChartCoordinateType {
-    CARTESIAN = 'CARTESIAN'
+    CARTESIAN = 'CARTESIAN',
 }
 
 const getChartCoordinatesType = (config: IConfig): ChartCoordinateType => {
@@ -33,7 +33,7 @@ const getChartCoordinatesType = (config: IConfig): ChartCoordinateType => {
 };
 
 const chartComponentMap: Record<ChartCoordinateType, React.FC<IChartComponentProps>> = {
-    CARTESIAN: LinearChart
+    CARTESIAN: LinearChart,
 };
 
 export const Chart: React.FC<IChartProps> = ({ config, filters }) => {
