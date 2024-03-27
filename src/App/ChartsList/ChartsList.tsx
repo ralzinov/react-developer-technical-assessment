@@ -23,20 +23,30 @@ export const ChartsList: React.FC<IChartsListProps> = ({ charts = [], onChange, 
 
     return (
         <Stack spacing={3}>
-            {charts.map(({ id, name, config }, index) => {
+            {charts.map((chart, index) => {
+                const { id, name, config } = chart;
                 const chartFilters = filters[id] || { from: getYearDate(-20) };
                 const isEmpty = config.layers.length === 0;
+
+                const changeChart = (newChart: IChartConfig) => {
+                    const newCharts = [...charts];
+                    newCharts[index] = newChart;
+                    onChange(newCharts);
+                };
+
+                const deleteChart = () => {
+                    const newCharts = [...charts];
+                    newCharts.splice(index, 1);
+                    onChange(newCharts);
+                };
+
                 return (
                     <Card
                         key={id}
                         title={name}
-                        settings={<ChartSettings />}
+                        settings={<ChartSettings value={chart} onChange={changeChart} />}
                         settingsInitialOpen={isEmpty}
-                        onDelete={() => {
-                            const newCharts = [...charts];
-                            newCharts.splice(index, 1);
-                            onChange(newCharts);
-                        }}
+                        onDelete={deleteChart}
                         actions={
                             <ChartPeriodFilters
                                 value={chartFilters}
