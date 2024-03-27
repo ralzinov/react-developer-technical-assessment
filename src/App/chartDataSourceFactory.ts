@@ -1,12 +1,10 @@
-import { IChartDataSource } from './ChartsList/interfaces';
-
 interface IChartDataSourceFactoryConfig<TParams> {
     url: string;
     params?: TParams;
 }
 
 const joinQueryParams = (params: Record<string, string>) => {
-    const entries = Object.entries(params);
+    const entries = Object.entries(params).filter(([, value]) => value !== null && value !== undefined);
     if (entries.length > 0) {
         return `?${entries.map(([key, value]) => `${key}=${value}`).join('&')}`;
     }
@@ -18,14 +16,12 @@ const staticParams = {
     file_type: 'json'
 };
 
-export const fredDataSourceFactory =
-    <TParams, TResponse>(config: IChartDataSourceFactoryConfig<TParams>): IChartDataSource<TResponse> => {
+export const fetchFREDData =
+    async <TResponse>(
+        config: IChartDataSourceFactoryConfig<object>,
+        filters: object
+    ): Promise<TResponse> => {
         const { url, params = {} } = config;
-        if (!url.startsWith('/fred')) {
-            throw new Error(`Url is not supported: ${url}`);
-        }
-
-        return async () => {
-            return await fetch(`${url}${joinQueryParams({ ...params, ...staticParams })}`).then((res) => res.json());
-        };
+        const queryUrl = `${url}${joinQueryParams({ ...params, ...filters, ...staticParams })}`;
+        return await fetch(queryUrl).then((res) => res.json());
     };

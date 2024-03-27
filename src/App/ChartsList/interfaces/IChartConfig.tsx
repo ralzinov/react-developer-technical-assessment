@@ -1,18 +1,21 @@
-export type IChartDataSource<T> = () => Promise<T>;
+import { IFREDObservationsParams } from './fred';
 
-export interface IChartLayerConfig<T, TData> {
+export interface IChartLayerConfig<T> {
     type: T;
     name: string;
     field: string;
-    dataSource: IChartDataSource<TData>;
+    source: {
+        url: string,
+        params: IFREDObservationsParams
+    };
 }
 
-export interface IChartConfig<T, TData> {
+export interface IChartConfig<T> {
     field: string;
-    layers: IChartLayerConfig<T, TData>[];
+    layers: IChartLayerConfig<T>[];
 }
 
 export interface IChartComponentProps {
-    config: IChartConfig<string, object>;
+    config: IChartConfig<string>;
     data: Record<string, string>[];
 }

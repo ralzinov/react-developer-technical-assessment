@@ -3,48 +3,46 @@ import React, { useState } from 'react';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import { LinearChartType } from './ChartsList/Chart/LinearChart';
-import { IFREDObservationsParams, IFREDObservationsResponse } from './ChartsList/interfaces/fred';
-import { fredDataSourceFactory } from './chartDataSourceFactory.ts';
 import { ChartsList, IChartConfig } from './ChartsList';
 import { Header } from './Header.tsx';
 
-const MOCK_CONFIG = [
+const MOCK_CONFIG: IChartConfig[] = [
     {
         id: 'a',
-        name: 'Test',
+        name: 'Chart 1',
         config: {
             field: 'name',
             layers: [
                 {
                     field: 'uv',
                     name: 'UV',
-                    dataSource: fredDataSourceFactory<IFREDObservationsParams, IFREDObservationsResponse>({
+                    source: {
                         url: '/fred/series/observations',
                         params: {
                             series_id: 'GNPCA'
                         }
-                    }),
-                    type: LinearChartType.LINE,
+                    },
+                    type: LinearChartType.LINE
                 },
                 {
                     name: 'Amount',
-                    dataSource: fredDataSourceFactory<IFREDObservationsParams, IFREDObservationsResponse>({
+                    source: {
                         url: '/fred/series/observations',
                         params: {
                             series_id: 'MSIALLP'
                         }
-                    }),
+                    },
                     type: LinearChartType.AREA,
                     field: 'amt'
                 },
                 {
                     name: 'PV',
-                    dataSource: fredDataSourceFactory<IFREDObservationsParams, IFREDObservationsResponse>({
+                    source: {
                         url: '/fred/series/observations',
                         params: {
                             series_id: 'MSIMZMP'
                         }
-                    }),
+                    },
                     type: LinearChartType.COLUMNS,
                     field: 'pv'
                 }

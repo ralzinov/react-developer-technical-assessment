@@ -7,28 +7,31 @@ import Stack from '@mui/material/Stack';
 
 interface ICardProps {
     title: string;
+    actions: React.ReactNode;
     settings: React.ReactNode;
     children: React.ReactNode;
 }
 
 const Content: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     return (
-        <Box padding={'8px 16px'} display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
+        <Box position={'relative'} padding={'8px 16px'} display={'flex'} alignItems={'center'}
+             justifyContent={'space-between'}>
             {children}
         </Box>
     );
 };
 
-export const Card: React.FC<ICardProps> = ({ title, settings, children }) => {
+export const Card: React.FC<ICardProps> = ({ title, actions, settings, children }) => {
     const [settingsCollapsed, setSettingsCollapsed] = useState(false);
 
     return (
         <MuiCard variant={'outlined'}>
-            <Box marginBottom={2}>
+            <Box>
                 <AppBar position={'relative'} color={'transparent'} elevation={0}>
                     <Content>
                         {title}
-                        <Stack flexDirection={'column'} spacing={1}>
+                        <Stack spacing={1} direction={'row'}>
+                            {actions}
                             <IconButton onClick={() => setSettingsCollapsed(!settingsCollapsed)}>
                                 <SettingsIcon />
                             </IconButton>
@@ -41,7 +44,7 @@ export const Card: React.FC<ICardProps> = ({ title, settings, children }) => {
                         {settings}
                     </Content>
                 </Collapse>
-                <Divider sx={{ marginBottom: 2 }} />
+                <Divider />
                 <Content>
                     {children}
                 </Content>
