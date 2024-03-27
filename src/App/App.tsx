@@ -87,7 +87,7 @@ export const App: React.FC = () => {
                 </Container>
             </Header>
             <Container maxWidth="lg">
-                <ChartsList charts={charts} onChange={setCharts} />
+                <ChartsList charts={charts} onChange={setCharts} onCreate={addChart} />
             </Container>
         </Stack>
     );
