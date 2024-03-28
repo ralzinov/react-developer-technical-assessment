@@ -31,7 +31,7 @@ const Content: React.FC<BoxProps> = ({ children, ...props }) => {
 };
 
 export const Card: React.FC<ICardProps> = ({ title, actions, settings, children, settingsInitialOpen, onDelete }) => {
-    const [settingsCollapsed, setSettingsCollapsed] = useState(false/*!settingsInitialOpen*/);
+    const [settingsCollapsed, setSettingsCollapsed] = useState(!settingsInitialOpen);
 
     return (
         <MuiCard variant={'outlined'}>
