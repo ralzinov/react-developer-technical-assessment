@@ -1,70 +1,9 @@
 import React from 'react';
-import {
-    Area,
-    Bar,
-    CartesianGrid,
-    ComposedChart,
-    Legend,
-    Line,
-    ResponsiveContainer,
-    Tooltip,
-    XAxis,
-    YAxis,
-} from 'recharts';
-import { IChartComponentProps } from '../../interfaces';
-import { LinearChartType } from './LinearChart.const';
+import { CartesianGrid, ComposedChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { formatDateToYear, getMaxValue, getMinValue } from './utils.ts';
-
-const getChartLayers = (layers: IChartComponentProps['config']['layers']) =>
-    layers.map((layerConfig) => {
-        switch (layerConfig.type) {
-            case LinearChartType.LINE: {
-                return (
-                    <Line
-                        key={layerConfig.field}
-                        connectNulls
-                        type="monotone"
-                        dataKey={layerConfig.field}
-                        name={layerConfig.name}
-                        isAnimationActive={false}
-                        stroke={layerConfig.color}
-                        dot={!!layerConfig.dots}
-                    />
-                );
-            }
-            case LinearChartType.AREA: {
-                return (
-                    <Area
-                        key={layerConfig.field}
-                        name={layerConfig.name}
-                        connectNulls
-                        type="monotone"
-                        dataKey={layerConfig.field}
-                        isAnimationActive={false}
-                        fill={layerConfig.color}
-                        stroke={layerConfig.color}
-                        dot={!!layerConfig.dots}
-                    />
-                );
-            }
-            case LinearChartType.COLUMNS: {
-                return (
-                    <Bar
-                        key={layerConfig.field}
-                        name={layerConfig.name}
-                        dataKey={layerConfig.field}
-                        isAnimationActive={false}
-                        barSize={20}
-                        fill={layerConfig.color}
-                    />
-                );
-            }
-
-            default: {
-                throw new Error(`${layerConfig.type} type is not supported`);
-            }
-        }
-    });
+import { LinearChartTooltip } from './LinearChartTooltip.tsx';
+import { IChartComponentProps } from '../../interfaces';
+import { getChartLayers } from './getChartLayers.tsx';
 
 export const LinearChart: React.FC<IChartComponentProps> = ({ config, data }) => {
     return (
@@ -74,7 +13,11 @@ export const LinearChart: React.FC<IChartComponentProps> = ({ config, data }) =>
                 <YAxis domain={[getMinValue({ data, config }), getMaxValue({ data, config })]} scale={'sqrt'} />
                 <CartesianGrid stroke="#f5f5f5" />
                 {...getChartLayers(config.layers)}
-                <Tooltip />
+                <Tooltip
+                    content={({ label, active, payload }) => (
+                        <LinearChartTooltip label={label} active={!!active} payload={payload || []} />
+                    )}
+                />
                 <Legend />
             </ComposedChart>
         </ResponsiveContainer>

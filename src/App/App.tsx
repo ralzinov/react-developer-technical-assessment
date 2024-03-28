@@ -24,10 +24,10 @@ const MOCK_CONFIG: IChartConfig[] = [
             layers: [
                 {
                     field: 'uv',
-                    name: 'UV',
                     source: {
                         url: '/fred/series/observations',
                         name: 'Source 1',
+                        unit: void 0,
                         params: {
                             series_id: 'GNPCA',
                         },
@@ -36,10 +36,10 @@ const MOCK_CONFIG: IChartConfig[] = [
                     color: '#1d8a1d'
                 },
                 {
-                    name: 'Amount',
                     source: {
                         url: '/fred/series/observations',
                         name: 'Source 2',
+                        unit: void 0,
                         params: {
                             series_id: 'MSIALLP',
                         },
@@ -49,9 +49,9 @@ const MOCK_CONFIG: IChartConfig[] = [
                     color: '#d23a3a'
                 },
                 {
-                    name: 'PV',
                     source: {
                         url: '/fred/series/observations',
+                        unit: void 0,
                         name: 'Source 1',
                         params: {
                             series_id: 'MSIMZMP',

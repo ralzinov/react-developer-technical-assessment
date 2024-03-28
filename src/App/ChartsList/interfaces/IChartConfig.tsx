@@ -3,12 +3,12 @@ import { IFREDObservationsParams } from './fred';
 export interface IChartLayerSource {
     url: string;
     name: string;
+    unit: string | undefined;
     params: IFREDObservationsParams;
 }
 
 export interface IChartLayerConfig<T> {
     type: T;
-    name: string;
     field: string;
     source: IChartLayerSource;
     color?: string;

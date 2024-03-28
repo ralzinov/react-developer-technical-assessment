@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react';
 import { useDebounce } from '@react-hook/debounce';
+import { useInView } from 'react-intersection-observer';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Autocomplete, CircularProgress, TextField } from '@mui/material';
 import { IFREDSeriesSearchResponse } from '../../interfaces/fred/IFREDSeriesSearchResponse.ts';
 import { IChartLayerSource } from '../../interfaces';
 import { joinQueryParams } from '../../../utils.ts';
-import { useInView } from 'react-intersection-observer';
 
 interface IChartLayerSelectProps {
     value: IChartLayerSource;
@@ -15,6 +15,7 @@ interface IOption {
     id: string;
     label: string;
     value: string;
+    unit: string | undefined;
 }
 
 const FRED_SERIES_SEARCH_URL = '/fred/series/search';
@@ -26,7 +27,16 @@ const fetchDataChunk = async (url: string) => {
             throw new Error(`Failed to load data status: ${response.statusText}`);
         }
         const result = (await response.json()) as IFREDSeriesSearchResponse;
-        return result?.seriess?.map(({ id, title }): IOption => ({ id, label: title, value: id })) || [];
+        return (
+            result?.seriess?.map(
+                ({ id, title, units_short }): IOption => ({
+                    id,
+                    label: title,
+                    value: id,
+                    unit: units_short,
+                }),
+            ) || []
+        );
     } catch (e) {
         console.error(e);
         throw new Error('Failed to load data');
@@ -49,12 +59,29 @@ function* dataSource(searchQuery: string, pageSize = 20) {
     }
 }
 
-const useFredSeriesDataSource = (searchQuery: string) => {
+const getInitialOptions = (initialValue: IChartLayerSource | undefined): IOption[] => {
+    if (initialValue) {
+        console.log(initialValue);
+        const id = initialValue.params.series_id;
+        return [
+            {
+                id,
+                label: initialValue.name,
+                unit: initialValue.unit,
+                value: id,
+            },
+        ];
+    }
+
+    return [];
+};
+
+const useFredSeriesDataSource = (searchQuery: string, initialValue: IChartLayerSource | undefined) => {
     const [loading, setLoading] = useState(false);
     const [prevSearchQuery, setPrevSearchQuery] = useState('');
-    const [options, setOptions] = useState<IOption[]>([]);
+    const [options, setOptions] = useState<IOption[]>(getInitialOptions(initialValue));
     const series = useMemo(() => {
-        setOptions([]);
+        setOptions(getInitialOptions(initialValue));
         return dataSource(searchQuery);
     }, [searchQuery]);
 
@@ -86,26 +113,28 @@ const isOption = (value: unknown): value is IOption => !!(value as IOption)?.val
 export const ChartLayerSourceSelect: React.FC<IChartLayerSelectProps> = ({ value, onChange }) => {
     const { ref, inView } = useInView();
     const [query, setQuery] = useDebounce<string>('', 400);
-    const [paginator, { options, loading }] = useFredSeriesDataSource(query);
+    const [paginator, { options, loading }] = useFredSeriesDataSource(query, value);
 
     useEffect(() => {
         if (inView && !loading) {
             paginator.next();
         }
     }, [inView, loading, paginator]);
-    
+
     return (
         <Autocomplete
             size={'small'}
             options={options}
+            value={options.find(({ id }) => value.params.series_id === id)}
             onChange={(_, newValue) => {
                 if (isOption(newValue)) {
                     onChange({
                         url: '/fred/series/observations',
                         name: newValue.label,
+                        unit: newValue.unit,
                         params: {
-                            series_id: newValue.value
-                        }
+                            series_id: newValue.value,
+                        },
                     });
                 }
             }}

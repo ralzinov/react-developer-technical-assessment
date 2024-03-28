@@ -2,7 +2,7 @@ import { IChartLayerConfig } from '../../interfaces';
 import { ISupportedChartTypes } from '../Chart.tsx';
 import React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Box, Fade, FormControlLabel, IconButton, Switch } from '@mui/material';
+import { Fade, FormControlLabel, IconButton, Switch } from '@mui/material';
 import { ChartLayerSourceSelect } from './ChartLayerSourceSelect.tsx';
 import Stack from '@mui/material/Stack';
 import { ChartLayerTypeSelect } from './ChartLayerTypeSelect.tsx';
