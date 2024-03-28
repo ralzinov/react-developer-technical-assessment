@@ -61,7 +61,6 @@ function* dataSource(searchQuery: string, pageSize = 20) {
 
 const getInitialOptions = (initialValue: IChartLayerSource | undefined): IOption[] => {
     if (initialValue) {
-        console.log(initialValue);
         const id = initialValue.params.series_id;
         return [
             {
@@ -83,7 +82,7 @@ const useFredSeriesDataSource = (searchQuery: string, initialValue: IChartLayerS
     const series = useMemo(() => {
         setOptions(getInitialOptions(initialValue));
         return dataSource(searchQuery);
-    }, [searchQuery]);
+    }, [initialValue, searchQuery]);
 
     const paginator = useMemo(() => {
         return {

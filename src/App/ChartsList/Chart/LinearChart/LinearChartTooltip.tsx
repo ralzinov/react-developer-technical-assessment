@@ -1,14 +1,10 @@
-import React from 'react';
-import { NameType, Payload, ValueType } from 'recharts/types/component/DefaultTooltipContent';
-import { Card, Divider, Typography } from '@mui/material';
-import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import { Card, Divider, Typography } from '@mui/material';
+import { TooltipProps } from 'recharts/types/component/Tooltip';
+import { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent';
 
-export const LinearChartTooltip: React.FC<{
-    label: string;
-    active: boolean;
-    payload: Payload<ValueType, NameType>[];
-}> = ({ active, payload, label }) => {
+export const renderTooltip = ({ active, payload, label }: TooltipProps<ValueType, NameType>) => {
     if (active && payload && payload.length) {
         return (
             <Card>
