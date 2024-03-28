@@ -57,8 +57,6 @@ export const useDataLoadEffect = (config: IConfig, filters?: IChartFilters) => {
             .filter(([, source]) => !!source.params?.series_id),
     );
     const needsDataRefresh = !isEqual(filters, prevFilters) || !isEqual(sources, prevSources);
-    
-    console.log(sources);
 
     useEffect(() => {
         if (needsDataRefresh) {

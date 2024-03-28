@@ -7,24 +7,14 @@ import { ChartLayerSourceSelect } from './ChartLayerSourceSelect.tsx';
 import Stack from '@mui/material/Stack';
 import { ChartLayerTypeSelect } from './ChartLayerTypeSelect.tsx';
 import { LinearChartType } from '../LinearChart';
+import { ChartLayerColorSelect } from './ChartLayerColorSelect.tsx';
+import { getRandomColor } from '../../../utils.ts';
 
 interface IChartLayersEditListRowProps {
     value?: IChartLayerConfig<ISupportedChartTypes>;
     onChange: (value: IChartLayerConfig<ISupportedChartTypes>) => void;
     onDelete?: () => void;
 }
-
-const getRandomColor = () => {
-    const base = 200;
-    const generateColorComponent = () =>
-        Math.floor(Math.random() * base)
-            .toString(16)
-            .padStart(2, '0');
-    const red = generateColorComponent();
-    const green = generateColorComponent();
-    const blue = generateColorComponent();
-    return `#${red}${green}${blue}`;
-};
 
 const DOTS_EMABLED_TYPES: ISupportedChartTypes[] = [LinearChartType.LINE, LinearChartType.AREA];
 const getInitialLayerConfig = (): IChartLayerConfig<ISupportedChartTypes> => ({
@@ -47,6 +37,7 @@ export const ChartLayersEditListRow: React.FC<IChartLayersEditListRowProps> = ({
         <Stack direction={'row'} spacing={2} width={'100%'} alignItems={'center'}>
             <ChartLayerSourceSelect value={value.source} onChange={(source) => onChange({ ...value, source })} />
             <ChartLayerTypeSelect value={value?.type} onChange={(type) => onChange({ ...value, type })} />
+            <ChartLayerColorSelect value={value.color} onChange={(color) => onChange({ ...value, color })} />
             <Fade in={dotsConfigurable}>
                 <FormControlLabel
                     label="Dots"
