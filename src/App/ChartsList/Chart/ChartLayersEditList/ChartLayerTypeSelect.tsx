@@ -20,7 +20,7 @@ export const ChartLayerTypeSelect: React.FC<IChartLayerTypeSelectProps> = ({ val
         <Autocomplete
             size={'small'}
             options={options}
-            sx={{ width: 300 }}
+            sx={{ width: 200 }}
             renderInput={(params) => <TextField {...params} label="Type" />}
             value={options.find((option) => option.value === value)}
             onChange={(_, option) => onChange(option.value as ISupportedChartTypes)}

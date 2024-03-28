@@ -21,7 +21,7 @@ const getChartLayers = (layers: IChartComponentProps['config']['layers']) =>
             case LinearChartType.LINE: {
                 return (
                     <Line
-                        key={layerConfig.type}
+                        key={layerConfig.field}
                         connectNulls
                         type="monotone"
                         dataKey={layerConfig.field}
@@ -34,7 +34,7 @@ const getChartLayers = (layers: IChartComponentProps['config']['layers']) =>
             case LinearChartType.AREA: {
                 return (
                     <Area
-                        key={layerConfig.type}
+                        key={layerConfig.field}
                         name={layerConfig.name}
                         connectNulls
                         type="monotone"
@@ -48,7 +48,7 @@ const getChartLayers = (layers: IChartComponentProps['config']['layers']) =>
             case LinearChartType.COLUMNS: {
                 return (
                     <Bar
-                        key={layerConfig.type}
+                        key={layerConfig.field}
                         name={layerConfig.name}
                         dataKey={layerConfig.field}
                         isAnimationActive={false}

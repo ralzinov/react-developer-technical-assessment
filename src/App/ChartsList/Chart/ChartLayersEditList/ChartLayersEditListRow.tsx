@@ -15,7 +15,7 @@ interface IChartLayersEditListRowProps {
 
 export const ChartLayersEditListRow: React.FC<IChartLayersEditListRowProps> = ({ value, onChange, onDelete }) => {
     return (
-        <Stack direction={'row'} spacing={2} width={'100%'}>
+        <Stack direction={'row'} spacing={2} width={'100%'} alignItems={'center'}>
             <ChartLayerSourceSelect value={value.source} onChange={(source) => onChange({ ...value, source })} />
             <ChartLayerTypeSelect value={value.type} onChange={(type) => onChange({ ...value, type })} />
             <IconButton onClick={onDelete} size={'small'} sx={{ marginLeft: 'auto' }}>

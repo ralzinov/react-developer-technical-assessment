@@ -41,7 +41,7 @@ const MOCK_CONFIG: IChartConfig[] = [
                             series_id: 'MSIALLP',
                         },
                     },
-                    type: LinearChartType.AREA,
+                    type: LinearChartType.LINE,
                     field: 'amt',
                 },
                 {
