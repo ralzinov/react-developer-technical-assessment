@@ -27,7 +27,8 @@ const getChartLayers = (layers: IChartComponentProps['config']['layers']) =>
                         dataKey={layerConfig.field}
                         name={layerConfig.name}
                         isAnimationActive={false}
-                        stroke="#ff7300"
+                        stroke={layerConfig.color}
+                        dot={layerConfig.dots}
                     />
                 );
             }
@@ -40,8 +41,9 @@ const getChartLayers = (layers: IChartComponentProps['config']['layers']) =>
                         type="monotone"
                         dataKey={layerConfig.field}
                         isAnimationActive={false}
-                        fill="#8884d8"
-                        stroke="#8884d8"
+                        fill={layerConfig.color}
+                        stroke={layerConfig.color}
+                        dot={layerConfig.dots}
                     />
                 );
             }
@@ -53,7 +55,7 @@ const getChartLayers = (layers: IChartComponentProps['config']['layers']) =>
                         dataKey={layerConfig.field}
                         isAnimationActive={false}
                         barSize={20}
-                        fill="#413ea0"
+                        fill={layerConfig.color}
                     />
                 );
             }

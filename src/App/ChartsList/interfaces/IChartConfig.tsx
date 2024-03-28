@@ -10,6 +10,8 @@ export interface IChartLayerConfig<T> {
     name: string;
     field: string;
     source: IChartLayerSource;
+    color?: string;
+    dots?: boolean;
 }
 
 export interface IChartConfig<T> {

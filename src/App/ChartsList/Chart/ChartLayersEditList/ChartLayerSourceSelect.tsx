@@ -8,9 +8,5 @@ interface IChartLayerSelectProps {
 }
 
 export const ChartLayerSourceSelect: React.FC<IChartLayerSelectProps> = ({ value, onChange }) => {
-    return (
-        <div>
-            <TextField label={value.params.series_id} size={'small'} />
-        </div>
-    );
+    return <TextField label={value.params.series_id} size={'small'} fullWidth />;
 };

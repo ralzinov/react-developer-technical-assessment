@@ -32,6 +32,7 @@ const MOCK_CONFIG: IChartConfig[] = [
                         },
                     },
                     type: LinearChartType.LINE,
+                    color: '#1d8a1d'
                 },
                 {
                     name: 'Amount',
@@ -41,8 +42,9 @@ const MOCK_CONFIG: IChartConfig[] = [
                             series_id: 'MSIALLP',
                         },
                     },
-                    type: LinearChartType.LINE,
+                    type: LinearChartType.AREA,
                     field: 'amt',
+                    color: '#d23a3a'
                 },
                 {
                     name: 'PV',
@@ -52,8 +54,9 @@ const MOCK_CONFIG: IChartConfig[] = [
                             series_id: 'MSIMZMP',
                         },
                     },
-                    type: LinearChartType.COLUMNS,
+                    type: LinearChartType.AREA,
                     field: 'pv',
+                    color: '#4e3db9'
                 },
             ],
         },
