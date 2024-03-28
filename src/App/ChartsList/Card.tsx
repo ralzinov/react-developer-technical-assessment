@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Box from '@mui/material/Box';
+import Box, { BoxProps } from '@mui/material/Box';
 import MuiCard from '@mui/material/Card';
 import { AppBar, Collapse, Divider, IconButton, Typography } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -15,9 +15,10 @@ interface ICardProps {
     onDelete: () => void;
 }
 
-const Content: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const Content: React.FC<BoxProps> = ({ children, ...props }) => {
     return (
         <Box
+            {...props}
             position={'relative'}
             padding={'8px 16px'}
             display={'flex'}
@@ -56,7 +57,7 @@ export const Card: React.FC<ICardProps> = ({ title, actions, settings, children,
                 </AppBar>
                 <Collapse in={!settingsCollapsed}>
                     <Divider />
-                    <Content>{settings}</Content>
+                    <Content sx={{ backgroundColor: '#0000000a'}}>{settings}</Content>
                 </Collapse>
                 {children && (
                     <>

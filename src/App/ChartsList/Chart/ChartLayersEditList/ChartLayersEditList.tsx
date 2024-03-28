@@ -15,6 +15,7 @@ export const ChartLayersEditList: React.FC<IChartLayersEditListProps> = ({ value
         <Stack spacing={1}>
             {value.map((layer, index) => (
                 <React.Fragment key={layer.field}>
+                    {index > 0 && <Divider />}
                     <ChartLayersEditListRow
                         key={layer.field}
                         value={layer}
@@ -29,7 +30,6 @@ export const ChartLayersEditList: React.FC<IChartLayersEditListProps> = ({ value
                             onChange(newValue);
                         }}
                     />
-                    <Divider />
                 </React.Fragment>
             ))}
         </Stack>
