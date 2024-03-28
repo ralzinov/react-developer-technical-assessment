@@ -2,9 +2,9 @@ import { IFREDObservationsParams } from './fred';
 
 export interface IChartLayerSource {
     url: string;
-    name: string;
-    unit: string | undefined;
-    params: IFREDObservationsParams;
+    name?: string;
+    unit?: string;
+    params?: IFREDObservationsParams;
 }
 
 export interface IChartLayerConfig<T> {

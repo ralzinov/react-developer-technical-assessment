@@ -51,9 +51,15 @@ export const useDataLoadEffect = (config: IConfig, filters?: IChartFilters) => {
     const [prevFilters, setPrevFilters] = useState<IChartFilters>({});
     const [prevSources, setPrevSources] = useState<Record<string, IChartLayerSource>>({});
 
-    const sources = Object.fromEntries(config.layers.map(({ field, source }) => [field, source]));
+    const sources = Object.fromEntries(
+        config.layers
+            .map(({ field, source }) => [field, source] as const)
+            .filter(([, source]) => !!source.params?.series_id),
+    );
     const needsDataRefresh = !isEqual(filters, prevFilters) || !isEqual(sources, prevSources);
     
+    console.log(sources);
+
     useEffect(() => {
         if (needsDataRefresh) {
             setLoading(true);

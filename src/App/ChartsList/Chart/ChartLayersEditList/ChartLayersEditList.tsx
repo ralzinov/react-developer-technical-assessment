@@ -12,7 +12,7 @@ interface IChartLayersEditListProps {
 
 export const ChartLayersEditList: React.FC<IChartLayersEditListProps> = ({ value, onChange }) => {
     return (
-        <Stack spacing={1}>
+        <Stack spacing={2}>
             {value.map((layer, index) => (
                 <React.Fragment key={layer.field}>
                     {index > 0 && <Divider />}
@@ -32,6 +32,15 @@ export const ChartLayersEditList: React.FC<IChartLayersEditListProps> = ({ value
                     />
                 </React.Fragment>
             ))}
+            <Divider />
+            <ChartLayersEditListRow
+                key={value.length}
+                onChange={(newLayer) => {
+                    const newValue = [...value];
+                    newValue[value.length] = newLayer;
+                    onChange(newValue);
+                }}
+            />
         </Stack>
     );
 };
