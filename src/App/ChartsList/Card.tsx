@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Box, { BoxProps } from '@mui/material/Box';
 import MuiCard from '@mui/material/Card';
 import { AppBar, Collapse, Divider, IconButton, Typography } from '@mui/material';
@@ -31,11 +31,21 @@ const Content: React.FC<BoxProps> = ({ children, ...props }) => {
 };
 
 export const Card: React.FC<ICardProps> = ({ title, actions, settings, children, settingsInitialOpen, onDelete }) => {
+    const ref = useRef<HTMLDivElement>();
     const [settingsCollapsed, setSettingsCollapsed] = useState(!settingsInitialOpen);
+
+    const toggleSettingsPanel = () => {
+        setSettingsCollapsed(!settingsCollapsed);
+        setTimeout(() => {
+            if (settingsCollapsed) {
+                ref.current?.scrollIntoView({ behavior: 'smooth' });
+            }
+        }, 200);
+    }
 
     return (
         <MuiCard variant={'outlined'}>
-            <Box>
+            <Box ref={ref}>
                 <AppBar
                     position={'relative'}
                     color={'transparent'}
@@ -46,7 +56,7 @@ export const Card: React.FC<ICardProps> = ({ title, actions, settings, children,
                         <Typography variant={'button'}>{title}</Typography>
                         <Stack spacing={1} direction={'row'} alignItems={'center'}>
                             {actions}
-                            <IconButton onClick={() => setSettingsCollapsed(!settingsCollapsed)} size={'small'}>
+                            <IconButton onClick={toggleSettingsPanel} size={'small'}>
                                 <SettingsIcon />
                             </IconButton>
                             <IconButton onClick={onDelete} size={'small'}>
