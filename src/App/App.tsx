@@ -27,6 +27,7 @@ const MOCK_CONFIG: IChartConfig[] = [
                     name: 'UV',
                     source: {
                         url: '/fred/series/observations',
+                        name: 'Source 1',
                         params: {
                             series_id: 'GNPCA',
                         },
@@ -38,6 +39,7 @@ const MOCK_CONFIG: IChartConfig[] = [
                     name: 'Amount',
                     source: {
                         url: '/fred/series/observations',
+                        name: 'Source 2',
                         params: {
                             series_id: 'MSIALLP',
                         },
@@ -50,6 +52,7 @@ const MOCK_CONFIG: IChartConfig[] = [
                     name: 'PV',
                     source: {
                         url: '/fred/series/observations',
+                        name: 'Source 1',
                         params: {
                             series_id: 'MSIMZMP',
                         },

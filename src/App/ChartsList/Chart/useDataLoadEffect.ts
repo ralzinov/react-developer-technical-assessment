@@ -1,9 +1,10 @@
-import { IFREDObservationsResponse } from '../interfaces/fred';
 import merge from 'lodash.merge';
+import isEqual from 'lodash.isequal';
 import { useEffect, useState } from 'react';
-import { fetchFREDData } from '../../chartDataSourceFactory.ts';
+import { fetchFREDData } from './fetchFREDData.ts';
 import { IChartFilters, ISupportedChartTypes } from './Chart.tsx';
-import { IChartConfig } from '../interfaces';
+import { IChartConfig, IChartLayerSource } from '../interfaces';
+import { IFREDObservationsResponse } from '../interfaces/fred';
 
 type IConfig = IChartConfig<ISupportedChartTypes>;
 
@@ -47,26 +48,37 @@ export const useDataLoadEffect = (config: IConfig, filters?: IChartFilters) => {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState<Record<string, string>[]>([]);
+    const [prevFilters, setPrevFilters] = useState<IChartFilters>({});
+    const [prevSources, setPrevSources] = useState<Record<string, IChartLayerSource>>({});
 
+    const sources = Object.fromEntries(config.layers.map(({ field, source }) => [field, source]));
+    const needsDataRefresh = !isEqual(filters, prevFilters) || !isEqual(sources, prevSources);
+    
     useEffect(() => {
-        setLoading(true);
-        Promise.all(
-            config.layers.map(async ({ field, source }) => {
-                try {
-                    const result = await fetchFREDData<IFREDObservationsResponse>(source, {
-                        observation_start: filters?.from,
-                    });
-                    return { field, result };
-                } catch (e) {
-                    console.error(e);
-                    setError(true);
-                    return { field };
-                }
-            }),
-        )
-            .then((result) => setData(zipData(result, config)))
-            .finally(() => setLoading(false));
-    }, [config, config.layers, filters]);
+        if (needsDataRefresh) {
+            setLoading(true);
+            Promise.all(
+                config.layers.map(async ({ field, source }) => {
+                    try {
+                        const result = await fetchFREDData<IFREDObservationsResponse>(source, {
+                            observation_start: filters?.from,
+                        });
+                        return { field, result };
+                    } catch (e) {
+                        console.error(e);
+                        setError(true);
+                        return { field };
+                    }
+                }),
+            )
+                .then((result) => setData(zipData(result, config)))
+                .finally(() => {
+                    setLoading(false);
+                    setPrevFilters(filters || {});
+                    setPrevSources(sources);
+                });
+        }
+    }, [config, config.layers, filters, needsDataRefresh, sources]);
 
     return { data, loading, error };
 };

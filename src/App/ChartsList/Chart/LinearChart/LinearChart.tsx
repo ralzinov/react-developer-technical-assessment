@@ -13,7 +13,7 @@ import {
 } from 'recharts';
 import { IChartComponentProps } from '../../interfaces';
 import { LinearChartType } from './LinearChart.const';
-import { formatDateToYear, getMaxValue } from './utils.ts';
+import { formatDateToYear, getMaxValue, getMinValue } from './utils.ts';
 
 const getChartLayers = (layers: IChartComponentProps['config']['layers']) =>
     layers.map((layerConfig) => {
@@ -28,7 +28,7 @@ const getChartLayers = (layers: IChartComponentProps['config']['layers']) =>
                         name={layerConfig.name}
                         isAnimationActive={false}
                         stroke={layerConfig.color}
-                        dot={layerConfig.dots}
+                        dot={!!layerConfig.dots}
                     />
                 );
             }
@@ -43,7 +43,7 @@ const getChartLayers = (layers: IChartComponentProps['config']['layers']) =>
                         isAnimationActive={false}
                         fill={layerConfig.color}
                         stroke={layerConfig.color}
-                        dot={layerConfig.dots}
+                        dot={!!layerConfig.dots}
                     />
                 );
             }
@@ -71,7 +71,7 @@ export const LinearChart: React.FC<IChartComponentProps> = ({ config, data }) =>
         <ResponsiveContainer minHeight={400}>
             <ComposedChart data={data}>
                 <XAxis dataKey={config.field} tickFormatter={formatDateToYear} />
-                <YAxis domain={[0, getMaxValue({ data, config }) + 1000]} scale={'sqrt'} />
+                <YAxis domain={[getMinValue({ data, config }), getMaxValue({ data, config })]} scale={'sqrt'} />
                 <CartesianGrid stroke="#f5f5f5" />
                 {...getChartLayers(config.layers)}
                 <Tooltip />
