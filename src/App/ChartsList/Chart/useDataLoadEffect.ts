@@ -44,9 +44,6 @@ const zipData = (
     }) as Record<string, string>[];
 };
 
-const callsCount: number[] = [];
-let prevCall = 0;
-
 export const useDataLoadEffect = (config: IConfig, filters?: IChartFilters) => {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -63,16 +60,6 @@ export const useDataLoadEffect = (config: IConfig, filters?: IChartFilters) => {
 
     useEffect(() => {
         if (needsDataRefresh) {
-            callsCount.push(Date.now() - prevCall);
-            prevCall = Date.now();
-            const rate = callsCount.reduce((sum, val) => sum + val, 0) / callsCount.length;
-            console.log({ rate });
-
-            if (callsCount.length > 5 && rate < 1000) {
-                debugger
-            }
-
-            console.log(filters, prevFilters, sources, prevSources);
             setLoading(true);
             Promise.all(
                 config.layers.map(async ({ field, source }) => {

@@ -1,10 +1,10 @@
 import React from 'react';
+import { Divider } from '@mui/material';
 import Stack from '@mui/material/Stack';
+import { NoElementsPlaceholder } from '../../../components/NoElementsPlaceholder.tsx';
 import { ChartLayersEditListRow } from './ChartLayersEditListRow.tsx';
 import { IChartLayerConfig } from '../../interfaces';
 import { ISupportedChartTypes } from '../Chart.tsx';
-import { Divider } from '@mui/material';
-import { NoElementsPlaceholder } from '../../../components/NoElementsPlaceholder.tsx';
 
 interface IChartLayersEditListProps {
     value: IChartLayerConfig<ISupportedChartTypes>[];

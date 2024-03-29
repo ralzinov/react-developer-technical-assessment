@@ -1,10 +1,10 @@
+import Stack from '@mui/material/Stack';
+import MuiCard from '@mui/material/Card';
 import React, { useRef, useState } from 'react';
 import Box, { BoxProps } from '@mui/material/Box';
-import MuiCard from '@mui/material/Card';
-import { AppBar, Collapse, Divider, IconButton, Typography } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Stack from '@mui/material/Stack';
+import SettingsIcon from '@mui/icons-material/Settings';
+import { AppBar, Collapse, Divider, IconButton, Typography } from '@mui/material';
 
 interface ICardProps {
     title: string;
