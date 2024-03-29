@@ -25,4 +25,10 @@ export const getMinValue = (props: IChartComponentProps) => {
 };
 
 export const formatDateToYear = (date: string) => String(new Date(date).getFullYear());
-export const formatFullDate = (date: string) => String(new Date(date).toLocaleDateString());
+
+export const formatNumber = (value: number) => {
+    return new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 0,
+        notation: 'compact',
+    }).format(value);
+}
