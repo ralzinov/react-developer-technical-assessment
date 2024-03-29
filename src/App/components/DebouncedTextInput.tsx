@@ -19,9 +19,7 @@ export const DebouncedTextInput: React.FC<IDebouncedTextInputProps<unknown>> = (
 
     useEffect(() => {
         if (String(value) !== String(inputValue)) {
-            setTimeout(() => {
-                onChange(inputValue);
-            }, debounce);
+            onChange(inputValue);
         }
     }, [debounce, inputValue, onChange, value]);
 
