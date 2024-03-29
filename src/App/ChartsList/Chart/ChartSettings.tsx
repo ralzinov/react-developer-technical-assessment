@@ -53,7 +53,8 @@ export const ChartSettings: React.FC<IChartSettingsProps> = ({ value, onChange }
                     size={'small'}
                     type={'number'}
                     debounce={200}
-                    label={'Y-Axis ticks'}
+                    label={'Y-Axis max value'}
+                    sx={{ width: '150px' }}
                     value={value.config.yAxisTicks}
                     onChange={(inputValue) => {
                         const yAxisTicks = parseInt(String(inputValue).trim(), 10);
