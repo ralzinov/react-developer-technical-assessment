@@ -83,7 +83,7 @@ export const App: React.FC = () => {
     };
     
     return (
-        <Stack width={'100vw'} height={'100vh'} spacing={3} alignItems={'center'}>
+        <Stack height={'100vh'} spacing={3} alignItems={'center'}>
             <Header>
                 <Container maxWidth="lg">
                     <Stack justifyContent={'space-between'} direction={'row'} alignItems={'center'}>

@@ -124,7 +124,7 @@ export const ChartLayerSourceSelect: React.FC<IChartLayerSelectProps> = ({ value
         <Autocomplete
             size={'small'}
             options={options}
-            value={options.find(({ id }) => value?.params?.series_id === id)}
+            value={options.find(({ id }) => value?.params?.series_id === id) || null}
             onChange={(_, newValue) => {
                 if (isOption(newValue)) {
                     onChange({
