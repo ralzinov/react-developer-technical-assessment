@@ -3,7 +3,7 @@ import Stack from '@mui/material/Stack';
 import { ChartPeriodFilters } from './Chart/ChartPeriodFilters.tsx';
 import { Chart, IChartFilters, IChartProps } from './Chart';
 import { ChartSettings } from './Chart/ChartSettings.tsx';
-import { getYearDate } from './Chart/utils.ts';
+import { getYearDate, hasSeriesId } from './Chart/utils.ts';
 import { Card } from './Card.tsx';
 import { NoElementsPlaceholder } from '../components/NoElementsPlaceholder.tsx';
 
@@ -26,7 +26,7 @@ export const ChartsList: React.FC<IChartsListProps> = ({ charts = [], onChange, 
             {charts.map((chart, index) => {
                 const { id, name, config } = chart;
                 const chartFilters = filters[id] || { from: getYearDate(-20) };
-                const isEmpty = config.layers.every((layer) => !layer.source.params?.series_id);
+                const isEmpty = config.layers.every((layer) => !hasSeriesId(layer.source));
 
                 const changeChart = (newChart: IChartConfig) => {
                     const newCharts = [...charts];

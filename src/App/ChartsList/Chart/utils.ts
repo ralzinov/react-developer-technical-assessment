@@ -1,3 +1,5 @@
+import { IChartLayerSource } from '../interfaces';
+
 const formatDate = (date: Date): string => {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -10,3 +12,5 @@ export const getYearDate = (offset: number) => {
     const date = new Date(currentYear + offset, 0);
     return formatDate(date);
 };
+
+export const hasSeriesId = (source: IChartLayerSource) => source.params?.series_id;
