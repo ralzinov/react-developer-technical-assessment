@@ -5,6 +5,7 @@ import { Autocomplete, TextField } from '@mui/material';
 interface IChartLayerTypeSelectProps {
     value: ISupportedChartTypes;
     onChange: (value: ISupportedChartTypes) => void;
+    disabled?: boolean;
 }
 
 const labels: Record<ISupportedChartTypes, string> = {
@@ -15,7 +16,7 @@ const labels: Record<ISupportedChartTypes, string> = {
 
 const options = Object.entries(labels).map(([id, label]) => ({ id, label, value: id }));
 
-export const ChartLayerTypeSelect: React.FC<IChartLayerTypeSelectProps> = ({ value, onChange }) => {
+export const ChartLayerTypeSelect: React.FC<IChartLayerTypeSelectProps> = ({ value, onChange, disabled }) => {
     return (
         <Autocomplete
             size={'small'}
@@ -24,6 +25,7 @@ export const ChartLayerTypeSelect: React.FC<IChartLayerTypeSelectProps> = ({ val
             renderInput={(params) => <TextField {...params} label="Type" />}
             value={options.find((option) => option.value === value)}
             onChange={(_, option) => onChange(option.value as ISupportedChartTypes)}
+            disabled={disabled}
             disableClearable
         />
     );

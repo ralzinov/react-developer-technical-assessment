@@ -1,3 +1,7 @@
+import { IChartLayerConfig } from './ChartsList/interfaces';
+import { ISupportedChartTypes } from './ChartsList/Chart';
+import { LinearChartType } from './ChartsList/Chart/LinearChart';
+
 export const joinQueryParams = (params: Record<string, string | number>) => {
     const entries = Object.entries(params).filter(([, value]) => value !== null && value !== undefined);
     if (entries.length > 0) {
@@ -17,3 +21,12 @@ export const getRandomColor = () => {
     const blue = generateColorComponent();
     return `#${red}${green}${blue}`;
 };
+
+export const getInitialLayerConfig = (): IChartLayerConfig<ISupportedChartTypes> => ({
+    type: LinearChartType.LINE,
+    field: crypto.randomUUID(),
+    color: getRandomColor(),
+    source: {
+        url: '/fred/series/observations',
+    },
+});

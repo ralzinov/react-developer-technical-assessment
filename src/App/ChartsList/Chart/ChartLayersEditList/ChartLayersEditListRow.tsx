@@ -1,36 +1,23 @@
-import { IChartLayerConfig } from '../../interfaces';
-import { ISupportedChartTypes } from '../Chart.tsx';
 import React from 'react';
+import Stack from '@mui/material/Stack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Fade, FormControlLabel, IconButton, Switch } from '@mui/material';
 import { ChartLayerSourceSelect } from './ChartLayerSourceSelect.tsx';
-import Stack from '@mui/material/Stack';
-import { ChartLayerTypeSelect } from './ChartLayerTypeSelect.tsx';
-import { LinearChartType } from '../LinearChart';
 import { ChartLayerColorSelect } from './ChartLayerColorSelect.tsx';
-import { getRandomColor } from '../../../utils.ts';
+import { ChartLayerTypeSelect } from './ChartLayerTypeSelect.tsx';
+import { IChartLayerConfig } from '../../interfaces';
+import { ISupportedChartTypes } from '../Chart.tsx';
+import { LinearChartType } from '../LinearChart';
 
 interface IChartLayersEditListRowProps {
-    value?: IChartLayerConfig<ISupportedChartTypes>;
+    value: IChartLayerConfig<ISupportedChartTypes>;
     onChange: (value: IChartLayerConfig<ISupportedChartTypes>) => void;
-    onDelete?: () => void;
+    onDelete: () => void;
 }
 
 const DOTS_EMABLED_TYPES: ISupportedChartTypes[] = [LinearChartType.LINE, LinearChartType.AREA];
-const getInitialLayerConfig = (): IChartLayerConfig<ISupportedChartTypes> => ({
-    type: LinearChartType.LINE,
-    field: crypto.randomUUID(),
-    color: getRandomColor(),
-    source: {
-        url: '/fred/series/observations',
-    },
-});
 
-export const ChartLayersEditListRow: React.FC<IChartLayersEditListRowProps> = ({
-    value = getInitialLayerConfig(),
-    onChange,
-    onDelete,
-}) => {
+export const ChartLayersEditListRow: React.FC<IChartLayersEditListRowProps> = ({ value, onChange, onDelete }) => {
     const dotsConfigurable = value.type && DOTS_EMABLED_TYPES.includes(value.type);
 
     return (
@@ -48,11 +35,9 @@ export const ChartLayersEditListRow: React.FC<IChartLayersEditListRowProps> = ({
                     disabled={!dotsConfigurable}
                 />
             </Fade>
-            <Fade in={!!onDelete}>
-                <IconButton onClick={onDelete} size={'small'} sx={{ marginLeft: 'auto' }}>
-                    <DeleteIcon />
-                </IconButton>
-            </Fade>
+            <IconButton onClick={onDelete} size={'small'} sx={{ marginLeft: 'auto' }}>
+                <DeleteIcon />
+            </IconButton>
         </Stack>
     );
 };

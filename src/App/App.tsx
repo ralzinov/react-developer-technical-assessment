@@ -6,6 +6,7 @@ import { LinearChartType } from './ChartsList/Chart/LinearChart';
 import { ChartsList, IChartConfig } from './ChartsList';
 import { WhiteButton } from './components/WhiteButton.tsx';
 import { Header } from './Header.tsx';
+import { getInitialLayerConfig } from './utils.ts';
 
 const MOCK_CONFIG: IChartConfig[] = [
     {
@@ -75,12 +76,12 @@ export const App: React.FC = () => {
             name: `Chart ${charts.length + 1}`,
             config: {
                 field: 'name',
-                layers: [],
+                layers: [getInitialLayerConfig()],
             },
         };
         setCharts([newChart, ...charts]);
     };
-
+    
     return (
         <Stack width={'100vw'} height={'100vh'} spacing={3} alignItems={'center'}>
             <Header>
@@ -94,7 +95,9 @@ export const App: React.FC = () => {
                 </Container>
             </Header>
             <Container maxWidth="lg">
-                <ChartsList charts={charts} onChange={setCharts} onCreate={addChart} />
+                <ChartsList charts={charts} onChange={(v) => {
+                    setCharts(v)
+                }} onCreate={addChart} />
             </Container>
         </Stack>
     );

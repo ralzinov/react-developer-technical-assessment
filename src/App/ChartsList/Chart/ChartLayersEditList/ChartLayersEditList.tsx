@@ -4,13 +4,15 @@ import { ChartLayersEditListRow } from './ChartLayersEditListRow.tsx';
 import { IChartLayerConfig } from '../../interfaces';
 import { ISupportedChartTypes } from '../Chart.tsx';
 import { Divider } from '@mui/material';
+import { NoElementsPlaceholder } from '../../../components/NoElementsPlaceholder.tsx';
 
 interface IChartLayersEditListProps {
     value: IChartLayerConfig<ISupportedChartTypes>[];
     onChange: (value: IChartLayerConfig<ISupportedChartTypes>[]) => void;
+    onCreate: () => void;
 }
 
-export const ChartLayersEditList: React.FC<IChartLayersEditListProps> = ({ value, onChange }) => {
+export const ChartLayersEditList: React.FC<IChartLayersEditListProps> = ({ value, onChange, onCreate }) => {
     return (
         <Stack spacing={2}>
             {value.map((layer, index) => (
@@ -32,15 +34,7 @@ export const ChartLayersEditList: React.FC<IChartLayersEditListProps> = ({ value
                     />
                 </React.Fragment>
             ))}
-            <Divider />
-            <ChartLayersEditListRow
-                key={value.length}
-                onChange={(newLayer) => {
-                    const newValue = [...value];
-                    newValue[value.length] = newLayer;
-                    onChange(newValue);
-                }}
-            />
+            {value.length === 0 && <NoElementsPlaceholder onCreate={onCreate} />}
         </Stack>
     );
 };
