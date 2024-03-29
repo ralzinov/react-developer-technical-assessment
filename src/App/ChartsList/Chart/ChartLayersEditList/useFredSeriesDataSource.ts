@@ -1,6 +1,5 @@
 import { IFREDSeriesSearchResponse } from '../../interfaces/fred/IFREDSeriesSearchResponse.ts';
 import { joinQueryParams } from '../../../utils.ts';
-import { IChartLayerSource } from '../../interfaces';
 import { useEffect, useMemo, useState } from 'react';
 
 const FRED_SERIES_SEARCH_URL = '/fred/series/search';
@@ -53,30 +52,14 @@ function* dataSource(searchQuery: string | null, pageSize = 20) {
     }
 }
 
-const getInitialOptions = (initialValue: IChartLayerSource | undefined): IOption[] => {
-    const id = initialValue?.params?.series_id;
-    if (initialValue?.name && id) {
-        return [
-            {
-                id,
-                label: initialValue.name,
-                unit: initialValue.unit,
-                value: id,
-            },
-        ];
-    }
-
-    return [];
-};
-
-export const useFredSeriesDataSource = (searchQuery: string | null, initialValue: IChartLayerSource | undefined) => {
+export const useFredSeriesDataSource = (searchQuery: string | null) => {
     const [loading, setLoading] = useState(false);
     const [prevSearchQuery, setPrevSearchQuery] = useState('');
-    const [options, setOptions] = useState<IOption[]>(getInitialOptions(initialValue));
+    const [options, setOptions] = useState<IOption[]>([]);
     const series = useMemo(() => {
-        setOptions(getInitialOptions(initialValue));
+        setOptions([]);
         return dataSource(searchQuery);
-    }, [initialValue, searchQuery]);
+    }, [searchQuery]);
 
     const paginator = useMemo(() => {
         return {

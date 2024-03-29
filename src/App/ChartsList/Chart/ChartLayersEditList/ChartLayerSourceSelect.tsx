@@ -1,9 +1,10 @@
 import { useDebounce } from '@react-hook/debounce';
 import { useInView } from 'react-intersection-observer';
 import React, { useEffect } from 'react';
-import { Autocomplete, CircularProgress, TextField } from '@mui/material';
+import { Autocomplete, CircularProgress } from '@mui/material';
 import { IChartLayerSource } from '../../interfaces';
 import { isOption, useFredSeriesDataSource } from './useFredSeriesDataSource.ts';
+import { DebouncedTextInput } from '../../../components/DebouncedTextInput.tsx';
 
 interface IChartLayerSelectProps {
     value: IChartLayerSource;
@@ -12,8 +13,8 @@ interface IChartLayerSelectProps {
 
 export const ChartLayerSourceSelect: React.FC<IChartLayerSelectProps> = ({ value, onChange }) => {
     const { ref, inView } = useInView();
-    const [query, setQuery] = useDebounce<string | null>('', 200);
-    const [paginator, { options, loading }] = useFredSeriesDataSource(query, value);
+    const [query, setQuery] = useDebounce<string>(value?.name || '', 200);
+    const [paginator, { options, loading }] = useFredSeriesDataSource(query);
 
     useEffect(() => {
         if (inView && !loading) {
@@ -27,10 +28,9 @@ export const ChartLayerSourceSelect: React.FC<IChartLayerSelectProps> = ({ value
         <Autocomplete
             size={'small'}
             options={options}
-            value={option || null}
+            value={option}
             onChange={(_, newValue) => {
                 if (isOption(newValue)) {
-                    setQuery(newValue.label);
                     onChange({
                         url: '/fred/series/observations',
                         name: newValue.label,
@@ -43,14 +43,15 @@ export const ChartLayerSourceSelect: React.FC<IChartLayerSelectProps> = ({ value
             }}
             renderInput={(params) => {
                 const inputProps = { ...params.inputProps };
-                inputProps.value = (query === null ? query : query || option?.label) || '';
+                delete inputProps.value;
 
                 return (
-                    <TextField
+                    <DebouncedTextInput
                         {...params}
+                        value={query || value?.name}
                         inputProps={inputProps}
                         placeholder={'Start typing to search'}
-                        onChange={(e) => setQuery(e.target.value.trim() || null)}
+                        onChange={(e) => setQuery(e as string)}
                         InputProps={{
                             ...params.InputProps,
                             endAdornment: (
@@ -72,6 +73,7 @@ export const ChartLayerSourceSelect: React.FC<IChartLayerSelectProps> = ({ value
                 );
             }}
             filterOptions={(x) => x}
+            disableClearable
             selectOnFocus
             fullWidth
             freeSolo
