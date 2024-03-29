@@ -28,7 +28,7 @@ export const App: React.FC = () => {
             <Header>
                 <Container maxWidth="lg">
                     <Stack justifyContent={'space-between'} direction={'row'} alignItems={'center'}>
-                        <Typography variant={'subtitle2'}>FRED</Typography>
+                        <Typography variant={'h6'}>St. Louis Fed Web Services: FRED series</Typography>
                         <WhiteButton variant={'outlined'} onClick={addChart}>
                             Add chart
                         </WhiteButton>
