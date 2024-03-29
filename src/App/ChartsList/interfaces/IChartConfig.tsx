@@ -24,7 +24,7 @@ export interface IChartLayerConfig<T> {
 
 export interface IChartConfig<T> {
     field: string;
-    scale?: ChartScale,
+    scale?: ChartScale;
     yAxisTicks?: number;
     layers: IChartLayerConfig<T>[];
 }

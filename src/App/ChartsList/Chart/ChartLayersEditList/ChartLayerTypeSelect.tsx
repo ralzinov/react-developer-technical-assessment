@@ -11,8 +11,8 @@ interface IChartLayerTypeSelectProps {
 const labels: Record<ISupportedChartTypes, string> = {
     LINE: 'Line',
     AREA: 'Area',
-    COLUMNS: 'Column'
-}
+    COLUMNS: 'Column',
+};
 
 const options = Object.entries(labels).map(([id, label]) => ({ id, label, value: id }));
 

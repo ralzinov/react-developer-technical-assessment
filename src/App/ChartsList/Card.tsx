@@ -41,7 +41,7 @@ export const Card: React.FC<ICardProps> = ({ title, actions, settings, children,
                 ref.current?.scrollIntoView({ behavior: 'smooth' });
             }
         }, 200);
-    }
+    };
 
     return (
         <MuiCard variant={'outlined'}>
@@ -67,7 +67,7 @@ export const Card: React.FC<ICardProps> = ({ title, actions, settings, children,
                 </AppBar>
                 <Collapse in={!settingsCollapsed}>
                     <Divider />
-                    <Content sx={{ backgroundColor: '#0000000a'}}>{settings}</Content>
+                    <Content sx={{ backgroundColor: '#0000000a' }}>{settings}</Content>
                 </Collapse>
                 {children && (
                     <>

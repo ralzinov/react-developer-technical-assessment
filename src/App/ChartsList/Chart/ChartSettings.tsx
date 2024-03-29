@@ -29,7 +29,6 @@ const Fieldset: React.FC<{ text: string; children: React.ReactNode; action: Reac
 );
 
 export const ChartSettings: React.FC<IChartSettingsProps> = ({ value, onChange }) => {
-
     const addLayer = () => {
         const newLayer = getInitialLayerConfig();
         onChange({ ...value, config: { ...value.config, layers: [newLayer, ...value.config.layers] } });
@@ -59,7 +58,7 @@ export const ChartSettings: React.FC<IChartSettingsProps> = ({ value, onChange }
                     onChange={(inputValue) => {
                         const yAxisTicks = parseInt(String(inputValue).trim(), 10);
                         if (!isNaN(yAxisTicks)) {
-                            onChange({ ...value, config: { ...value.config, yAxisTicks } })
+                            onChange({ ...value, config: { ...value.config, yAxisTicks } });
                         }
                     }}
                 />

@@ -7,7 +7,6 @@ interface INoElementsPlaceholderProps {
 }
 
 export const NoElementsPlaceholder: React.FC<INoElementsPlaceholderProps> = ({ onCreate }) => {
-
     return (
         <Stack spacing={2} padding={2} height={'300px'} alignItems={'center'} justifyContent={'center'}>
             <Typography variant={'h5'}>No elements</Typography>

@@ -12,7 +12,7 @@ const labels: Record<ChartScale, string> = {
     pow: 'Pow',
     sqrt: 'Sqrt',
     log: 'log',
-}
+};
 
 const options = Object.entries(labels).map(([id, label]) => ({ id, label, value: id }));
 
