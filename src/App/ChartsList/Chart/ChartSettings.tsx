@@ -2,7 +2,9 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import { Button, Divider, TextField, Typography } from '@mui/material';
+import { DebouncedTextInput } from '../../components/DebouncedTextInput.tsx';
 import { ChartLayersEditList } from './ChartLayersEditList';
+import { ChartScaleSelect } from './ChartScaleSelect.tsx';
 import { getInitialLayerConfig } from '../../utils.ts';
 import { IChartConfig } from '../ChartsList.tsx';
 
@@ -27,6 +29,7 @@ const Fieldset: React.FC<{ text: string; children: React.ReactNode; action: Reac
 );
 
 export const ChartSettings: React.FC<IChartSettingsProps> = ({ value, onChange }) => {
+
     const addLayer = () => {
         const newLayer = getInitialLayerConfig();
         onChange({ ...value, config: { ...value.config, layers: [newLayer, ...value.config.layers] } });
@@ -34,8 +37,9 @@ export const ChartSettings: React.FC<IChartSettingsProps> = ({ value, onChange }
 
     return (
         <Stack paddingTop={2} paddingBottom={2} spacing={3} width={'100%'}>
-            <Box>
+            <Stack direction={'row'} spacing={2}>
                 <TextField
+                    size={'small'}
                     label={'Name'}
                     value={value.name}
                     onChange={(e) => {
@@ -45,7 +49,24 @@ export const ChartSettings: React.FC<IChartSettingsProps> = ({ value, onChange }
                         });
                     }}
                 />
-            </Box>
+                <DebouncedTextInput
+                    size={'small'}
+                    type={'number'}
+                    debounce={200}
+                    label={'Y-Axis ticks'}
+                    value={value.config.yAxisTicks}
+                    onChange={(inputValue) => {
+                        const yAxisTicks = parseInt(String(inputValue).trim(), 10);
+                        if (!isNaN(yAxisTicks)) {
+                            onChange({ ...value, config: { ...value.config, yAxisTicks } })
+                        }
+                    }}
+                />
+                <ChartScaleSelect
+                    value={value.config.scale}
+                    onChange={(scale) => onChange({ ...value, config: { ...value.config, scale } })}
+                />
+            </Stack>
 
             <Fieldset
                 text={'Layers'}

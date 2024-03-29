@@ -7,6 +7,13 @@ export interface IChartLayerSource {
     params?: IFREDObservationsParams;
 }
 
+export enum ChartScale {
+    LINEAR = 'linear',
+    POW = 'pow',
+    SQRT = 'sqrt',
+    LOG = 'log',
+}
+
 export interface IChartLayerConfig<T> {
     type: T;
     field: string;
@@ -17,6 +24,8 @@ export interface IChartLayerConfig<T> {
 
 export interface IChartConfig<T> {
     field: string;
+    scale?: ChartScale,
+    yAxisTicks?: number;
     layers: IChartLayerConfig<T>[];
 }
 

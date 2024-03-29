@@ -7,11 +7,17 @@ import { renderLegend } from './renderLegend.tsx';
 import { renderTooltip } from './LinearChartTooltip.tsx';
 
 export const LinearChart: React.FC<IChartComponentProps> = ({ config, data }) => {
+    const maxValue = Math.max(getMaxValue({ data, config }), config.yAxisTicks || 1);
+
     return (
         <ResponsiveContainer minHeight={400}>
             <ComposedChart data={data}>
                 <XAxis dataKey={config.field} tickFormatter={formatDateToYear} />
-                <YAxis domain={[getMinValue({ data, config }), getMaxValue({ data, config })]} scale={'sqrt'} />
+                <YAxis
+                    domain={[getMinValue({ data, config }), maxValue]}
+                    scale={config.scale}
+                    tickCount={config.yAxisTicks}
+                />
                 <CartesianGrid stroke="#f5f5f5" />
                 {...getChartLayers(config.layers)}
                 <Tooltip content={renderTooltip} />
