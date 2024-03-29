@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Stack from '@mui/material/Stack';
 import { Typography } from '@mui/material';
 import Container from '@mui/material/Container';
-import { ChartsList, IChartConfig } from './ChartsList';
 import { WhiteButton } from './components/WhiteButton.tsx';
-import { Header } from './Header.tsx';
+import { useChartsStore } from './useChartsStore.tsx';
 import { getInitialLayerConfig } from './utils.ts';
+import { ChartsList } from './ChartsList';
+import { Header } from './Header.tsx';
 
 export const App: React.FC = () => {
-    const [charts, setCharts] = useState<IChartConfig[]>([]);
+    const [charts, setCharts] = useChartsStore();
 
     const addChart = () => {
         const newChart = {
