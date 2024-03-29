@@ -60,7 +60,7 @@ export const useDataLoadEffect = (config: IConfig, filters?: IChartFilters) => {
     const needsDataRefresh = !isEqual(filters, prevFilters) || !isEqual(sources, prevSources);
 
     useEffect(() => {
-        if (needsDataRefresh) {
+        if (needsDataRefresh && !loading) {
             setLoading(true);
             Promise.all(
                 config.layers

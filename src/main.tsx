@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { CssBaseline } from '@mui/material';
 import { Theme } from './Theme.tsx';
@@ -10,13 +9,11 @@ const swrConfig: SWRConfiguration = {
 };
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-    <React.StrictMode>
-        <Theme>
-            <CssBaseline>
-                <SWRConfig value={swrConfig}>
-                    <App />
-                </SWRConfig>
-            </CssBaseline>
-        </Theme>
-    </React.StrictMode>,
+    <Theme>
+        <CssBaseline>
+            <SWRConfig value={swrConfig}>
+                <App />
+            </SWRConfig>
+        </CssBaseline>
+    </Theme>,
 );

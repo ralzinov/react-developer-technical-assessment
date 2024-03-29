@@ -65,7 +65,7 @@ export const Card: React.FC<ICardProps> = ({ title, actions, settings, children,
                         </Stack>
                     </Content>
                 </AppBar>
-                <Collapse in={!settingsCollapsed}>
+                <Collapse in={!settingsCollapsed} mountOnEnter>
                     <Divider />
                     <Content sx={{ backgroundColor: '#0000000a' }}>{settings}</Content>
                 </Collapse>

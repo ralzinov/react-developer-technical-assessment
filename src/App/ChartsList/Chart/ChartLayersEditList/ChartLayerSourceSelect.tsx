@@ -28,7 +28,7 @@ export const ChartLayerSourceSelect: React.FC<IChartLayerSelectProps> = ({ value
         <Autocomplete
             size={'small'}
             options={options}
-            value={option}
+            value={option || null}
             onChange={(_, newValue) => {
                 if (isOption(newValue)) {
                     onChange({
@@ -57,7 +57,6 @@ export const ChartLayerSourceSelect: React.FC<IChartLayerSelectProps> = ({ value
                             endAdornment: (
                                 <React.Fragment>
                                     {loading ? <CircularProgress color="inherit" size={20} /> : null}
-                                    {params.InputProps.endAdornment}
                                 </React.Fragment>
                             ),
                         }}
@@ -73,7 +72,6 @@ export const ChartLayerSourceSelect: React.FC<IChartLayerSelectProps> = ({ value
                 );
             }}
             filterOptions={(x) => x}
-            disableClearable
             selectOnFocus
             fullWidth
             freeSolo
