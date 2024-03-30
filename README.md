@@ -39,7 +39,7 @@ including colors, line styles, or bar styles.
 
 ### FRED API
 - API document https://research.stlouisfed.org/docs/api/fred/
-- API Key: <your api key> 
+- API Key: `your api key` 
 - Use the series API
 
 ---
