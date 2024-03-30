@@ -1,5 +1,19 @@
 # Frontend Software Engineer Assignment
+This is a technical assessment project for front end developer position. 
 
+## Run instruction:
+1. Clone this repo
+2. Run `pnpm i`
+3. Obtain FRED api key by registering
+4. Create .env file in the root of project with the following content:
+```
+VITE_FRED_API_KEY=<your api key>
+```
+5. Run `npm run dev`
+
+---
+
+## Task description
 Here is the challenge that we would like you to solve to assess your work and as preparation
 for an in-depth technical interview. 
 
@@ -25,7 +39,7 @@ including colors, line styles, or bar styles.
 
 ### FRED API
 - API document https://research.stlouisfed.org/docs/api/fred/
-- API Key: register to get your api key 
+- API Key: <your api key> 
 - Use the series API
 
 ---
