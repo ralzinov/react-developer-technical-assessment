@@ -15,6 +15,8 @@ export const App: React.FC = () => {
         const newChart = {
             id: crypto.randomUUID(),
             name: `Chart ${charts.length + 1}`,
+            yAxisTicks: 5,
+            yAxisLabel: 'Value',
             config: {
                 field: 'name',
                 layers: [getInitialLayerConfig()],

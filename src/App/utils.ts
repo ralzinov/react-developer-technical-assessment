@@ -1,4 +1,4 @@
-import { IChartLayerConfig } from './ChartsList/interfaces';
+import { IChartLayerConfig, LayerCurveType } from './ChartsList/interfaces';
 import { ISupportedChartTypes } from './ChartsList/Chart';
 import { LinearChartType } from './ChartsList/Chart/LinearChart';
 
@@ -26,6 +26,7 @@ export const getInitialLayerConfig = (): IChartLayerConfig<ISupportedChartTypes>
     type: LinearChartType.LINE,
     field: crypto.randomUUID(),
     color: getRandomColor(),
+    curveType: LayerCurveType.SMOOTH,
     source: {
         url: '/fred/series/observations',
     },

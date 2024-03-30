@@ -13,7 +13,7 @@ interface IChartSettingsProps {
     onChange: (value: IChartConfig) => void;
 }
 
-const Fieldset: React.FC<{ text: string; children: React.ReactNode; action: React.ReactNode }> = ({
+const Fieldset: React.FC<{ text: string; children: React.ReactNode; action?: React.ReactNode }> = ({
     text,
     children,
     action,
@@ -39,7 +39,7 @@ export const ChartSettings: React.FC<IChartSettingsProps> = ({ value, onChange }
             <Stack direction={'row'} spacing={2}>
                 <TextField
                     size={'small'}
-                    label={'Name'}
+                    label={'Title'}
                     value={value.name}
                     onChange={(e) => {
                         onChange({
@@ -48,25 +48,41 @@ export const ChartSettings: React.FC<IChartSettingsProps> = ({ value, onChange }
                         });
                     }}
                 />
-                <DebouncedTextInput
-                    size={'small'}
-                    type={'number'}
-                    debounce={200}
-                    label={'Y-Axis max value'}
-                    sx={{ width: '150px' }}
-                    value={value.config.yAxisTicks}
-                    onChange={(inputValue) => {
-                        const yAxisTicks = parseInt(String(inputValue).trim(), 10);
-                        if (!isNaN(yAxisTicks)) {
-                            onChange({ ...value, config: { ...value.config, yAxisTicks } });
-                        }
-                    }}
-                />
-                <ChartScaleSelect
-                    value={value.config.scale}
-                    onChange={(scale) => onChange({ ...value, config: { ...value.config, scale } })}
-                />
             </Stack>
+
+            <Fieldset text={'Y-Axis'}>
+                <Stack direction={'row'} spacing={1}>
+                    <DebouncedTextInput
+                        size={'small'}
+                        debounce={200}
+                        label={'Label'}
+                        sx={{ width: '250px' }}
+                        value={value.config.yAxisLabel}
+                        onChange={(yAxisLabel) => {
+                            onChange({ ...value, config: { ...value.config, yAxisLabel: yAxisLabel as string } });
+                        }}
+                    />
+                    <DebouncedTextInput
+                        size={'small'}
+                        type={'number'}
+                        debounce={200}
+                        label={'Max value'}
+                        sx={{ width: '150px' }}
+                        value={value.config.yAxisTicks}
+                        onChange={(inputValue) => {
+                            const yAxisTicks = parseInt(String(inputValue).trim(), 10);
+                            if (!isNaN(yAxisTicks)) {
+                                onChange({ ...value, config: { ...value.config, yAxisTicks } });
+                            }
+                        }}
+                    />
+                    <ChartScaleSelect
+                        label={'Scale'}
+                        value={value.config.scale}
+                        onChange={(scale) => onChange({ ...value, config: { ...value.config, scale } })}
+                    />
+                </Stack>
+            </Fieldset>
 
             <Fieldset
                 text={'Layers'}

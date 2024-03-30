@@ -17,6 +17,8 @@ export const LinearChart: React.FC<IChartComponentProps> = ({ config, data }) =>
                 <CartesianGrid stroke="#f5f5f5" />
                 <XAxis dataKey={config.field} tickFormatter={formatDateToYear} />
                 <YAxis
+                    label={{ value: config.yAxisLabel, angle: -90, position: 'insideLeft', textBreakAll: true }}
+                    minTickGap={2}
                     domain={[getMinValue({ data, config }), maxValue]}
                     scale={config.scale}
                     tickCount={config.yAxisTicks}

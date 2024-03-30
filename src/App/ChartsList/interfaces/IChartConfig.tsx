@@ -9,14 +9,20 @@ export interface IChartLayerSource {
 
 export enum ChartScale {
     LINEAR = 'linear',
-    POW = 'pow',
     SQRT = 'sqrt',
     LOG = 'log',
+}
+
+export enum LayerCurveType {
+    LINEAR = 'linear',
+    SMOOTH = 'monotone',
+    STEP = 'step'
 }
 
 export interface IChartLayerConfig<T> {
     type: T;
     field: string;
+    curveType?: LayerCurveType;
     source: IChartLayerSource;
     color?: string;
     dots?: boolean;
@@ -25,6 +31,7 @@ export interface IChartLayerConfig<T> {
 export interface IChartConfig<T> {
     field: string;
     scale?: ChartScale;
+    yAxisLabel?: string;
     yAxisTicks?: number;
     layers: IChartLayerConfig<T>[];
 }

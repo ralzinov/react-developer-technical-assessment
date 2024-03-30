@@ -12,14 +12,14 @@ export const getChartLayers = (layers: IChartComponentProps['config']['layers'])
                     return (
                         <Line
                             key={layerConfig.field}
-                            connectNulls
-                            type="monotone"
+                            type={layerConfig.curveType}
                             dataKey={layerConfig.field}
                             name={layerConfig.source.name}
                             isAnimationActive={false}
                             stroke={layerConfig.color}
                             dot={!!layerConfig.dots}
                             unit={layerConfig.source.unit}
+                            connectNulls
                         />
                     );
                 }
@@ -28,14 +28,14 @@ export const getChartLayers = (layers: IChartComponentProps['config']['layers'])
                         <Area
                             key={layerConfig.field}
                             name={layerConfig.source.name}
-                            connectNulls
-                            type="monotone"
+                            type={layerConfig.curveType}
                             dataKey={layerConfig.field}
                             isAnimationActive={false}
                             fill={layerConfig.color}
                             stroke={layerConfig.color}
                             dot={!!layerConfig.dots}
                             unit={layerConfig.source.unit}
+                            connectNulls
                         />
                     );
                 }
