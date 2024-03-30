@@ -1,4 +1,4 @@
-# Frontend Software Engineer Assignment
+# Frontend Engineer Assignment solution
 This is a technical assessment project for front end developer position. 
 
 ## How to run:
