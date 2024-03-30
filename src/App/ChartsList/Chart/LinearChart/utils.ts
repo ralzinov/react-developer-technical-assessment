@@ -29,6 +29,7 @@ export const formatDateToYear = (date: string) => String(new Date(date).getFullY
 export const formatNumber = (value: number) => {
     return new Intl.NumberFormat('en-US', {
         minimumFractionDigits: 0,
+        maximumFractionDigits: 1,
         notation: 'compact',
     }).format(value);
-}
+};

@@ -25,7 +25,10 @@ export const ChartLayersEditListRow: React.FC<IChartLayersEditListRowProps> = ({
         <Stack direction={'row'} spacing={2} width={'100%'} alignItems={'center'}>
             <ChartLayerSourceSelect value={value.source} onChange={(source) => onChange({ ...value, source })} />
             <ChartLayerTypeSelect value={value?.type} onChange={(type) => onChange({ ...value, type })} />
-            <ChartLayerCurveStyleSelect value={value?.curveType} onChange={(curveType) => onChange({ ...value, curveType })} />
+            <ChartLayerCurveStyleSelect
+                value={value?.curveType}
+                onChange={(curveType) => onChange({ ...value, curveType })}
+            />
             <Fade in={dotsConfigurable}>
                 <FormControlLabel
                     label="Dots"

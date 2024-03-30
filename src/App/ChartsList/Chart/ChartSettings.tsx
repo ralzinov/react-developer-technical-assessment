@@ -28,6 +28,8 @@ const Fieldset: React.FC<{ text: string; children: React.ReactNode; action?: Rea
     </Box>
 );
 
+const MAX_Y_AXIS_VALUE = 9999;
+
 export const ChartSettings: React.FC<IChartSettingsProps> = ({ value, onChange }) => {
     const addLayer = () => {
         const newLayer = getInitialLayerConfig();
@@ -44,7 +46,7 @@ export const ChartSettings: React.FC<IChartSettingsProps> = ({ value, onChange }
                     onChange={(e) => {
                         onChange({
                             ...value,
-                            name: e.target.value.trim(),
+                            name: e.target.value,
                         });
                     }}
                 />
@@ -52,14 +54,14 @@ export const ChartSettings: React.FC<IChartSettingsProps> = ({ value, onChange }
 
             <Fieldset text={'Y-Axis'}>
                 <Stack direction={'row'} spacing={1}>
-                    <DebouncedTextInput
+                    <TextField
                         size={'small'}
-                        debounce={200}
                         label={'Label'}
                         sx={{ width: '250px' }}
                         value={value.config.yAxisLabel}
-                        onChange={(yAxisLabel) => {
-                            onChange({ ...value, config: { ...value.config, yAxisLabel: yAxisLabel as string } });
+                        onChange={(e) => {
+                            const yAxisLabel = e.target.value as string;
+                            onChange({ ...value, config: { ...value.config, yAxisLabel } });
                         }}
                     />
                     <DebouncedTextInput
@@ -71,7 +73,7 @@ export const ChartSettings: React.FC<IChartSettingsProps> = ({ value, onChange }
                         value={value.config.yAxisTicks}
                         onChange={(inputValue) => {
                             const yAxisTicks = parseInt(String(inputValue).trim(), 10);
-                            if (!isNaN(yAxisTicks)) {
+                            if (!isNaN(yAxisTicks) && yAxisTicks < MAX_Y_AXIS_VALUE) {
                                 onChange({ ...value, config: { ...value.config, yAxisTicks } });
                             }
                         }}
@@ -88,7 +90,7 @@ export const ChartSettings: React.FC<IChartSettingsProps> = ({ value, onChange }
                 text={'Layers'}
                 action={
                     <Button size={'small'} variant={'outlined'} onClick={addLayer}>
-                        Add
+                        Add layer
                     </Button>
                 }
             >

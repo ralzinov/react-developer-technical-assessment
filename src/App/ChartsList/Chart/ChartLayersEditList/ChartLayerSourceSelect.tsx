@@ -1,10 +1,9 @@
 import { useDebounce } from '@react-hook/debounce';
 import { useInView } from 'react-intersection-observer';
-import React, { useEffect } from 'react';
-import { Autocomplete, CircularProgress } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Autocomplete, CircularProgress, TextField } from '@mui/material';
 import { IChartLayerSource } from '../../interfaces';
 import { isOption, useFredSeriesDataSource } from './useFredSeriesDataSource.ts';
-import { DebouncedTextInput } from '../../../components/DebouncedTextInput.tsx';
 
 interface IChartLayerSelectProps {
     value: IChartLayerSource;
@@ -13,6 +12,7 @@ interface IChartLayerSelectProps {
 
 export const ChartLayerSourceSelect: React.FC<IChartLayerSelectProps> = ({ value, onChange }) => {
     const { ref, inView } = useInView();
+    const [inputValue, setInputValue] = useState('');
     const [query, setQuery] = useDebounce<string>(value?.name || '', 200);
     const [paginator, { options, loading }] = useFredSeriesDataSource(query);
 
@@ -29,6 +29,9 @@ export const ChartLayerSourceSelect: React.FC<IChartLayerSelectProps> = ({ value
             size={'small'}
             options={options}
             value={option || null}
+            onBlur={() => {
+                setInputValue(value.name!);
+            }}
             onChange={(_, newValue) => {
                 if (isOption(newValue)) {
                     onChange({
@@ -44,19 +47,26 @@ export const ChartLayerSourceSelect: React.FC<IChartLayerSelectProps> = ({ value
             renderInput={(params) => {
                 const inputProps = { ...params.inputProps };
                 delete inputProps.value;
-
                 return (
-                    <DebouncedTextInput
+                    <TextField
                         {...params}
-                        value={query || value?.name}
+                        key={value.params?.series_id}
+                        value={inputValue}
                         inputProps={inputProps}
+                        label={'Source'}
                         placeholder={'Start typing to search'}
-                        onChange={(e) => setQuery(e as string)}
+                        onChange={(e) => {
+                            const queryValue = e.target.value;
+                            setInputValue(queryValue);
+                            setQuery(queryValue?.trim());
+                        }}
                         InputProps={{
                             ...params.InputProps,
                             endAdornment: (
                                 <React.Fragment>
-                                    {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                                    {loading ? (
+                                        <CircularProgress color="inherit" size={20} sx={{ marginRight: '-28px' }} />
+                                    ) : null}
                                 </React.Fragment>
                             ),
                         }}

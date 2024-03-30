@@ -10,13 +10,12 @@ export interface IChartLayerSource {
 export enum ChartScale {
     LINEAR = 'linear',
     SQRT = 'sqrt',
-    LOG = 'log',
 }
 
 export enum LayerCurveType {
     LINEAR = 'linear',
     SMOOTH = 'monotone',
-    STEP = 'step'
+    STEP = 'step',
 }
 
 export interface IChartLayerConfig<T> {

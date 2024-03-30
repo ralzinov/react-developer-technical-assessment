@@ -11,7 +11,6 @@ interface IChartScaleSelectProps {
 const labels: Record<ChartScale, string> = {
     linear: 'Linear',
     sqrt: 'Sqrt',
-    log: 'Log',
 };
 
 const options = Object.entries(labels).map(([id, label]) => ({ id, label, value: id }));
